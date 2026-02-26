@@ -69,6 +69,8 @@ android {
         implementation(libs.fresco.animated.webp)
         implementation(libs.fresco.webp.support)
         implementation(libs.fresco.animated.base)
+        implementation ("org.lynxsdk.lynx:lynx-devtool:3.6.0")
+        implementation ("org.lynxsdk.lynx:lynx-service-devtool:3.6.0")
 
 //    kapt(libs.lynx.processor)
 

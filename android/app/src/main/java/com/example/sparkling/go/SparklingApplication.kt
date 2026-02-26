@@ -22,6 +22,9 @@ import com.tiktok.sparkling.method.router.open.RouterOpenMethod
 import com.tiktok.sparkling.method.router.utils.RouterProvider
 import com.example.sparkling.go.LynxInputComponent
 import com.example.sparkling.go.BuiltinTemplateProvider
+import com.lynx.service.devtool.LynxDevToolService
+import com.lynx.tasm.LynxEnv
+import com.lynx.tasm.service.LynxServiceCenter
 
 
 class SparklingApplication : Application() {
@@ -41,6 +44,7 @@ class SparklingApplication : Application() {
     private fun initSparkling() {
         initHybridKit()
         initSparklingMethods()
+        initDevTool()
     }
 
 
@@ -68,5 +72,20 @@ class SparklingApplication : Application() {
         SparklingBridgeManager.registerIDLMethod(RouterOpenMethod::class.java)
         SparklingBridgeManager.registerIDLMethod(RouterCloseMethod::class.java)
         RouterProvider.hostRouterDepend = SparklingHostRouterDepend()
+    }
+    
+    private fun initDevTool() {
+        LynxServiceCenter.inst().registerService(LynxDevToolService.INSTANCE)
+        // set DevTool preset values
+        LynxDevToolService.INSTANCE.setLynxDebugPresetValue(true)
+        LynxDevToolService.INSTANCE.setLogBoxPresetValue(true)
+        LynxDevToolService.INSTANCE.setLoadJsBridge(true)
+        LynxEnv.inst().init(this, null, null, null)
+        // Enable Lynx Debug
+        LynxEnv.inst().enableLynxDebug(true)
+        // Enable Lynx DevTool
+        LynxEnv.inst().enableDevtool(true)
+        // Enable Lynx LogBox
+        LynxEnv.inst().enableLogBox(true)
     }
 }
