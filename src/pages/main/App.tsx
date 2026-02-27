@@ -3,6 +3,7 @@ import * as router from 'sparkling-navigation';
 
 import './App.css';
 import sparklingLogo from '../../assets/sparkling_icon.png';
+import { options } from '@lynx-js/react/internal';
 
 export function App(props: { onMounted?: () => void }) {
   const [scheme, setScheme] = useState(
@@ -34,9 +35,25 @@ export function App(props: { onMounted?: () => void }) {
   }, [openWithScheme, secondPageScheme]);
 
   const openThirdPage = () => {
-    router.open({ scheme: thirdPageScheme }, (result: router.OpenResponse) => {
-      console.log('Router open page callback: ', result.code, ' ', result.msg);
-    });
+    router.navigate(
+      {
+        path: 'third.lynx.bundle',
+        options: {
+          extra: {
+            customExtraString: "I'm a string",
+            // customExtraNumber: '99',
+            // customExtraObject: { name: "I'm an object allright!" },
+          },
+          params: {
+            title: 'Custom title',
+            customParam: "I'm a custom Param",
+          },
+        },
+      },
+      (result: router.OpenResponse) => {
+        console.log('Router open page callback: ', result.code, ' ', result.msg);
+      }
+    );
   };
 
   return (

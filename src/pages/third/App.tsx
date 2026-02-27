@@ -8,6 +8,9 @@ export function App(props: { onMounted?: () => void }) {
   useEffect(() => {
     console.info('Hello, This is my custom Sparkling third page');
     console.info('lynx.__globalProps', lynx.__globalProps);
+    console.info('props', props);
+    console.info('lynx', lynx);
+
     props.onMounted?.();
   }, [props]);
 
